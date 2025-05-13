@@ -48,7 +48,23 @@ if(Blogs){
 }else{
     res.status(404).send("Post not found");
 }
+})
 
+//Update the Post
+app.put("/update/:id",(req,res)=>{
+  const id=parseInt(req.params.id)
+  const found=Blog.find((e)=>e.id===id);
+  if (found){
+    const updateBlog=Blog.find((e)=>e.id===id);
+ updateBlog.title=req.body.title;
+ updateBlog.body=req.body.body;
+ updateBlog.author=req.body.author;
+ updateBlog.views=req.body.views;
+    res.send(updateBlog);
+  }else{
+    res.status(404).send("Post not found");
+  }
+    
 })
 
 
