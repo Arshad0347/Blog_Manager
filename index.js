@@ -64,7 +64,17 @@ app.put("/update/:id",(req,res)=>{
   }else{
     res.status(404).send("Post not found");
   }
-    
+})
+
+//Delete Post
+app.delete("/delete/:id",(req,res)=>{
+    const id =parseInt(req.params.id);
+const found =Blog.some(Blogs=>Blogs.id===id);
+if(found){
+    res.send(Blog.filter(Blogs=>Blogs.id!==id));
+}else{
+    res.status(404).send("Post not found");
+}
 })
 
 
