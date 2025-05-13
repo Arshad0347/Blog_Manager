@@ -4,6 +4,7 @@ const Blog = require('./blogManager');
 const app = express();
 const uuid = require('uuid');
 app.use(express.json());
+let data=[]
 
 //Blog Post Manager
 //Features
@@ -18,7 +19,7 @@ app.get('/',(req,res)=>{
     res.send("Hello World");
 })
 //Create Blog Post 
-app.get('/CreateBlog',(req,res)=>{
+app.post('/CreateBlog',(req,res)=>{
     // console.log(req.body);
 const {title,body,author,views}=req.body;
 const Blogs={
@@ -30,7 +31,24 @@ const Blogs={
 }
 Blog.push(Blogs);
 res.send(Blog);
-    
+})
+//Get Read
+app.get('/Blog',(req,res)=>{
+    res.json(data);
+})
+//Get All the Post
+app.get("/AllPost",(req,res)=>{
+    res.send(Blog)
+})
+//Get Post by ID
+app.get("/Post/:id",(req,res)=>{
+const Blogs=Blog.find((e)=>e.id===parseInt(req.params.id));
+if(Blogs){
+    res.send(Blogs);
+}else{
+    res.status(404).send("Post not found");
+}
+
 })
 
 
