@@ -2,6 +2,7 @@ require('dotenv').config();
 const express =require('express');
 const Blog = require('./blogManager');
 const app = express();
+const uuid = require('uuid');
 app.use(express.json());
 
 //Blog Post Manager
@@ -15,6 +16,21 @@ app.use(express.json());
 
 app.get('/',(req,res)=>{
     res.send("Hello World");
+})
+//Create Blog Post 
+app.get('/CreateBlog',(req,res)=>{
+    // console.log(req.body);
+const {title,body,author,views}=req.body;
+const Blogs={
+    id:uuid.v4(),
+    title,
+    body,
+    author,
+    views
+}
+Blog.push(Blogs);
+res.send(Blog);
+    
 })
 
 
